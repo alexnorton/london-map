@@ -5,9 +5,13 @@ class Line {
 
   segments: LineSegment[];
 
-  constructor(name: string, segments: LineSegment[]) {
+  constructor(name: string) {
     this.name = name;
-    this.segments = segments;
+    this.segments = [];
+  }
+
+  addSegments(segments: LineSegment[]) {
+    this.segments.push(...segments);
   }
 }
 

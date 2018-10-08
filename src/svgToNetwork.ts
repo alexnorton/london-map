@@ -4,13 +4,13 @@ import StopPoint from './model/StopPoint';
 import LineSegment from './model/LineSegment';
 
 const svgToNetwork = (svg: Element) => {
-  const network = new Network();
-
-  const stopPoints: { [id: string]: StopPoint } = {};
+  const stopPointsObject: { [id: string]: StopPoint } = {};
 
   const lines = [...svg.querySelectorAll('svg > g.line')].map((lineGroup) => {
     const idParts = lineGroup.id.match(/(.+?)-(.+)/);
     const name = idParts[2];
+
+    const line = new Line(name);
 
     const segments = [...lineGroup.querySelectorAll('path, line')]
       .filter(segmentElement => segmentElement.id.indexOf('white_line') === -1)
@@ -21,23 +21,38 @@ const svgToNetwork = (svg: Element) => {
           const [, stopPoint1Id, stopPoint2Id] = matches;
 
           const [stopPoint1, stopPoint2] = [stopPoint1Id, stopPoint2Id].map((stopPointId) => {
-            if (!stopPoints[stopPointId]) {
-              stopPoints[stopPointId] = new StopPoint(stopPointId);
+            if (!stopPointsObject[stopPointId]) {
+              stopPointsObject[stopPointId] = new StopPoint(stopPointId);
             }
-            return stopPoints[stopPointId];
+            return stopPointsObject[stopPointId];
           });
 
-          return [...accumulator, new LineSegment(segmentElement, stopPoint1, stopPoint2)];
+          const lineSegment = new LineSegment(segmentElement, stopPoint1, stopPoint2);
+
+          stopPoint1.addLine(line);
+          stopPoint2.addLine(line);
+
+          stopPoint1.addLineSegment(line, lineSegment, stopPoint2);
+          stopPoint2.addLineSegment(line, lineSegment, stopPoint1);
+
+          return [...accumulator, lineSegment];
         }
 
         return accumulator;
       }, []);
 
-    const line = new Line(name, segments);
+    line.addSegments(segments);
+
     return line;
   });
 
-  console.log(lines);
+  const stopPoints = Object.keys(stopPointsObject).map(
+    stopPointId => stopPointsObject[stopPointId],
+  );
+
+  const network = new Network(lines, stopPoints);
+
+  console.log(network);
 };
 
 export default svgToNetwork;
