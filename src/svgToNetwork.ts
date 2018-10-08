@@ -12,8 +12,9 @@ const svgToNetwork = (svg: Element) => {
     const idParts = lineGroup.id.match(/(.+?)-(.+)/);
     const name = idParts[2];
 
-    const segments = [...lineGroup.querySelectorAll('path, line')].reduce(
-      (accumulator, segmentElement) => {
+    const segments = [...lineGroup.querySelectorAll('path, line')]
+      .filter(segmentElement => segmentElement.id.indexOf('white_line') === -1)
+      .reduce((accumulator, segmentElement) => {
         const matches = segmentElement.id.match(/[^_]+_([^_]+)_([^_]+)/);
 
         if (matches) {
@@ -30,9 +31,7 @@ const svgToNetwork = (svg: Element) => {
         }
 
         return accumulator;
-      },
-      [],
-    );
+      }, []);
 
     const line = new Line(name, segments);
     return line;
