@@ -17,28 +17,28 @@ const svgToNetwork = (svg: Element) => {
       .reduce((accumulator, segmentElement) => {
         const matches = segmentElement.id.match(/[^_]+_([^_]+)_([^_]+)/);
 
-        if (matches) {
-          const [, stopPoint1Id, stopPoint2Id] = matches;
-
-          const [stopPoint1, stopPoint2] = [stopPoint1Id, stopPoint2Id].map((stopPointId) => {
-            if (!stopPointsObject[stopPointId]) {
-              stopPointsObject[stopPointId] = new StopPoint(stopPointId);
-            }
-            return stopPointsObject[stopPointId];
-          });
-
-          const lineSegment = new LineSegment(segmentElement, stopPoint1, stopPoint2);
-
-          stopPoint1.addLine(line);
-          stopPoint2.addLine(line);
-
-          stopPoint1.addLineSegment(line, lineSegment, stopPoint2);
-          stopPoint2.addLineSegment(line, lineSegment, stopPoint1);
-
-          return [...accumulator, lineSegment];
+        if (!matches) {
+          return accumulator;
         }
 
-        return accumulator;
+        const [, stopPoint1Id, stopPoint2Id] = matches;
+
+        const [stopPoint1, stopPoint2] = [stopPoint1Id, stopPoint2Id].map((stopPointId) => {
+          if (!stopPointsObject[stopPointId]) {
+            stopPointsObject[stopPointId] = new StopPoint(stopPointId);
+          }
+          return stopPointsObject[stopPointId];
+        });
+
+        const lineSegment = new LineSegment(segmentElement, stopPoint1, stopPoint2);
+
+        stopPoint1.addLine(line);
+        stopPoint2.addLine(line);
+
+        stopPoint1.addLineSegment(line, lineSegment, stopPoint2);
+        stopPoint2.addLineSegment(line, lineSegment, stopPoint1);
+
+        return [...accumulator, lineSegment];
       }, []);
 
     line.addSegments(segments);
