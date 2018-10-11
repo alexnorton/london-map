@@ -1,4 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/styles/hljs';
 
 class Prediction extends Component {
   constructor(props) {
@@ -19,12 +21,14 @@ class Prediction extends Component {
     const { expectedArrival, stationName } = prediction;
 
     return (
-      <li onClick={this.handleToggle}>
-        {expectedArrival} – {stationName}
+      <li>
+        <span onClick={this.handleToggle}>
+          {expectedArrival} – {stationName}
+        </span>
         {expanded && (
-          <Fragment>
-            <pre>{JSON.stringify(prediction, null, 2)}</pre>
-          </Fragment>
+          <SyntaxHighlighter language="json" style={tomorrow}>
+            {JSON.stringify(prediction, null, 2)}
+          </SyntaxHighlighter>
         )}
       </li>
     );
