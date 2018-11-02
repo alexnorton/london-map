@@ -6,11 +6,16 @@ import './Navigation.css';
 function Navigation() {
   return (
     <ul className="navigation">
-      <li>
-        <NavLink to="/all-predictions" activeClassName="active">
-          All predictions
-        </NavLink>
-      </li>
+      {[
+        ['/all-predictions', 'All predictions'],
+        ['/vehicle-updates', 'Vehicle updates'],
+      ].map(([path, text]) => (
+        <li key={path}>
+          <NavLink to={path} activeClassName="active">
+            {text}
+          </NavLink>
+        </li>
+      ))}
     </ul>
   );
 }
