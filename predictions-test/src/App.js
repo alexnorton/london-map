@@ -1,46 +1,18 @@
-import React, { Component } from 'react';
-import Line from './Line';
+import React, { Fragment } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-class App extends Component {
-  constructor() {
-    super();
+import Navigation from './Navigation';
+import AllPredictions from './all-predictions';
 
-    this.state = { lines: {} };
-  }
-
-  async componentDidMount() {
-    const res = await fetch('/predictions.json');
-    const predictions = await res.json();
-
-    const lines = {};
-
-    predictions.forEach(prediction => {
-      const { lineId, vehicleId } = prediction;
-
-      if (!lines[lineId]) {
-        lines[lineId] = {};
-      }
-
-      if (!lines[lineId][vehicleId]) {
-        lines[lineId][vehicleId] = [];
-      }
-
-      lines[lineId][vehicleId].push(prediction);
-    });
-
-    this.setState({ lines });
-  }
-
-  render() {
-    const { lines } = this.state;
-    return (
-      <div className="App">
-        {Object.keys(lines).map(line => (
-          <Line key={line} line={line} vehicles={lines[line]} />
-        ))}
-      </div>
-    );
-  }
+function App() {
+  return (
+    <BrowserRouter>
+      <Fragment>
+        <Navigation />
+        <Route path="/all-predictions" component={AllPredictions} />
+      </Fragment>
+    </BrowserRouter>
+  );
 }
 
 export default App;

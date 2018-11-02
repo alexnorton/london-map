@@ -1,0 +1,13 @@
+ul.navigation {
+  padding: 0;
+}
+
+ul.navigation li {
+  display: inline;
+  display: inline-block;
+}
+
+ul.navigation li a.active {
+  color: #333;
+  text-decoration: none;
+}
