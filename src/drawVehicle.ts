@@ -13,13 +13,13 @@ function drawVehicle(offset: Date, svgDocument: Element, network: Network, vehic
   const path = select(lineSegment.element);
   const pathElement = path.node();
 
-  const startPoint = pathElement.getPointAtLength(0);
+  const { x: startX, y: startY } = pathElement.getPointAtLength(0);
 
   const marker = svg
     .append('circle')
     .attr('r', 4)
     .attr('fill', 'red')
-    .attr('transform', `translate(${startPoint.x},${startPoint.y})`);
+    .attr('transform', `translate(${startX},${startY})`);
 
   move(marker, pathElement);
 }
@@ -33,10 +33,10 @@ function move(marker: Selection<SVGElement, any, any, any>, pathElement: SVGGeom
 }
 
 function translateAlong(path: SVGGeometryElement) {
-  const l = path.getTotalLength();
-  return () => (t: number) => {
-    const p = path.getPointAtLength(t * l);
-    return `translate(${p.x},${p.y})`;
+  const length = path.getTotalLength();
+  return () => (time: number) => {
+    const { x, y } = path.getPointAtLength(time * length);
+    return `translate(${x},${y})`;
   };
 }
 
