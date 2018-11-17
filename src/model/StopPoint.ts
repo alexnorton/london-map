@@ -27,6 +27,10 @@ class StopPoint {
   addLineSegment(line: Line, lineSegment: LineSegment, toStopPoint: StopPoint) {
     this.lineSegments.push({ line, lineSegment, toStopPoint });
   }
+
+  getLineSegment(to: StopPoint) {
+    return this.lineSegments.find(lineSegment => lineSegment.toStopPoint === to).lineSegment;
+  }
 }
 
 export default StopPoint;

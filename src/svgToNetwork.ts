@@ -3,7 +3,7 @@ import Line from './model/Line';
 import StopPoint from './model/StopPoint';
 import LineSegment from './model/LineSegment';
 
-const svgToNetwork = (svg: Element) => {
+function svgToNetwork(svg: Element) {
   const stopPointsObject: { [id: string]: StopPoint } = {};
 
   const lines = [...svg.querySelectorAll('svg > g.line')].map((lineGroup) => {
@@ -38,6 +38,9 @@ const svgToNetwork = (svg: Element) => {
         stopPoint1.addLineSegment(line, lineSegment, stopPoint2);
         stopPoint2.addLineSegment(line, lineSegment, stopPoint1);
 
+        line.addStopPoint(stopPoint1);
+        line.addStopPoint(stopPoint2);
+
         return [...accumulator, lineSegment];
       }, []);
 
@@ -52,7 +55,7 @@ const svgToNetwork = (svg: Element) => {
 
   const network = new Network(lines, stopPoints);
 
-  console.log(network);
-};
+  return network;
+}
 
 export default svgToNetwork;

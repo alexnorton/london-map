@@ -2,3 +2,4 @@ node_modules
 build
 public/map.svg
 predictions.json
+yarn-error.log
