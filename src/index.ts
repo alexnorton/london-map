@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const vauxhallStopPoint = network.getStopPoint('940gzzluvxl');
   const pimlicoStopPoint = network.getStopPoint('940gzzlupco');
+  const victoriaStopPoint = network.getStopPoint('940gzzluvic');
+  const greenParkStopPoint = network.getStopPoint('940gzzlugpk');
 
   const offset = new Date('2018-11-17T15:58:38.560Z');
 
@@ -31,7 +33,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     1,
     victoriaLine,
     { stopPoint: vauxhallStopPoint, date: new Date('2018-11-17T15:58:38.560Z') },
-    [{ stopPoint: pimlicoStopPoint, date: new Date('2018-11-17T15:59:09.440Z') }],
+    [
+      { stopPoint: pimlicoStopPoint, date: new Date('2018-11-17T15:59:09.440Z') },
+      { stopPoint: victoriaStopPoint, date: new Date('2018-11-17T15:59:47.123Z') },
+      { stopPoint: greenParkStopPoint, date: new Date('2018-11-17T16:00:02.073Z') },
+    ],
   );
 
   drawVehicle(offset, svgDocument, network, vehicle);
