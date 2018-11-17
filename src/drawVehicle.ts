@@ -11,7 +11,7 @@ function drawVehicle(offset: Date, svgDocument: Element, network: Network, vehic
   );
 
   const path = select(lineSegment.element);
-  const pathElement = path.node() as SVGPathElement;
+  const pathElement = path.node();
 
   const startPoint = pathElement.getPointAtLength(0);
 
@@ -24,7 +24,7 @@ function drawVehicle(offset: Date, svgDocument: Element, network: Network, vehic
   move(marker, pathElement);
 }
 
-function move(marker: Selection<SVGElement, {}, null, undefined>, pathElement: SVGPathElement) {
+function move(marker: Selection<SVGElement, any, any, any>, pathElement: SVGGeometryElement) {
   marker
     .transition()
     .duration(5000)
@@ -32,7 +32,7 @@ function move(marker: Selection<SVGElement, {}, null, undefined>, pathElement: S
     .on('end', () => move(marker, pathElement));
 }
 
-function translateAlong(path: SVGPathElement) {
+function translateAlong(path: SVGGeometryElement) {
   const l = path.getTotalLength();
   return () => (t: number) => {
     const p = path.getPointAtLength(t * l);

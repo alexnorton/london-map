@@ -12,7 +12,9 @@ function svgToNetwork(svg: Element) {
 
     const line = new Line(name);
 
-    const segments = [...lineGroup.querySelectorAll('path, line')]
+    const segments = [
+      ...(lineGroup.querySelectorAll('path, line') as NodeListOf<SVGGeometryElement>),
+    ]
       .filter(segmentElement => segmentElement.id.indexOf('white_line') === -1)
       .reduce((accumulator, segmentElement) => {
         const matches = segmentElement.id.match(/[^_]+_([^_]+)_([^_]+)/);

@@ -1,11 +1,11 @@
 import StopPoint from './StopPoint';
 
 class LineSegment {
-  element: Element;
+  element: SVGGeometryElement;
 
   stopPoints: StopPoint[];
 
-  constructor(element: Element, stopPoint1: StopPoint, stopPoint2: StopPoint) {
+  constructor(element: SVGGeometryElement, stopPoint1: StopPoint, stopPoint2: StopPoint) {
     this.element = element;
     this.stopPoints = [stopPoint1, stopPoint2];
   }
