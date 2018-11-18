@@ -1,6 +1,6 @@
+import { select } from 'd3-selection';
 import svgToNetwork from './svgToNetwork';
 import Vehicle from './model/Vehicle';
-import drawVehicle from './drawVehicle';
 
 async function loadMap(document: HTMLDocument) {
   const mapContainer = document.querySelector('#map');
@@ -22,25 +22,48 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const victoriaLine = network.getLine('victoria');
 
-  const vauxhallStopPoint = network.getStopPoint('940gzzluvxl');
-  const pimlicoStopPoint = network.getStopPoint('940gzzlupco');
-  const victoriaStopPoint = network.getStopPoint('940gzzluvic');
-  const greenParkStopPoint = network.getStopPoint('940gzzlugpk');
-  const oxfordCircusStopPoint = network.getStopPoint('940gzzluoxc');
+  const svg = select(svgDocument);
 
   const offset = new Date('2018-11-17T15:58:38.560Z');
 
-  const vehicle = new Vehicle(
+  new Vehicle(
+    svg,
     1,
     victoriaLine,
-    { stopPoint: vauxhallStopPoint, date: new Date('2018-11-17T15:58:38.560Z') },
+    { stopPoint: network.getStopPoint('940gzzluvxl'), date: new Date('2018-11-17T15:58:38.560Z') },
     [
-      { stopPoint: pimlicoStopPoint, date: new Date('2018-11-17T15:59:09.440Z') },
-      { stopPoint: victoriaStopPoint, date: new Date('2018-11-17T15:59:47.123Z') },
-      { stopPoint: greenParkStopPoint, date: new Date('2018-11-17T16:00:02.073Z') },
-      { stopPoint: oxfordCircusStopPoint, date: new Date('2018-11-17T16:00:21.827Z') },
+      {
+        stopPoint: network.getStopPoint('940gzzlupco'),
+        date: new Date('2018-11-17T15:59:09.440Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzluvic'),
+        date: new Date('2018-11-17T15:59:47.123Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzlugpk'),
+        date: new Date('2018-11-17T16:00:02.073Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzluoxc'),
+        date: new Date('2018-11-17T16:00:21.827Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzluwrr'),
+        date: new Date('2018-11-17T16:00:21.827Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzlueus'),
+        date: new Date('2018-11-17T16:00:21.827Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzluksx'),
+        date: new Date('2018-11-17T16:00:21.827Z'),
+      },
+      {
+        stopPoint: network.getStopPoint('940gzzluhai'),
+        date: new Date('2018-11-17T16:00:21.827Z'),
+      },
     ],
   );
-
-  drawVehicle(offset, svgDocument, network, vehicle);
 });
