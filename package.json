@@ -9,6 +9,8 @@
     "fetch-map": "curl -o public/map.svg \"https://tfl.gov.uk/Modules/TubeMap?nightMode=false\""
   },
   "devDependencies": {
+    "@types/d3-selection": "^1.3.4",
+    "@types/d3-transition": "^1.1.3",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "eslint": "^5.5.0",
@@ -21,8 +23,6 @@
     "webpack-dev-server": "^3.1.7"
   },
   "dependencies": {
-    "@types/d3-selection": "^1.3.4",
-    "@types/d3-transition": "^1.1.3",
     "d3-selection": "^1.3.2",
     "d3-transition": "^1.1.3"
   }
