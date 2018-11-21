@@ -1,7 +1,7 @@
-import Line from 'line';
 import { select, Selection } from 'd3-selection';
 import 'd3-transition';
 import { Transition } from 'd3-transition';
+import Line from './Line';
 import IPrediction from './IPrediction';
 
 class Vehicle {
