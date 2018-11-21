@@ -1,6 +1,7 @@
 import { select } from 'd3-selection';
 import svgToNetwork from './svgToNetwork';
 import Vehicle from './model/Vehicle';
+import Fetcher from './Fetcher';
 
 async function loadMap(document: HTMLDocument) {
   const mapContainer = document.querySelector('#map');
@@ -66,4 +67,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       },
     ],
   );
+
+  new Fetcher();
 });
