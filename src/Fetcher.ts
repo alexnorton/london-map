@@ -58,7 +58,8 @@ class Fetcher extends (EventEmitter as { new (): FetcherEmitter }) {
     setTimeout(() => this.countDown(), 1000);
   }
 
-  start() {
+  async start() {
+    await this.fetch();
     this.countDown();
   }
 }
