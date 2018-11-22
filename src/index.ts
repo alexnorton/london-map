@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ],
   );
 
-  const fetcher = new Fetcher(10);
+  const fetcher = new Fetcher(60);
 
   fetcher.on('countdown', (secondsToFetch: number) => console.log('countDown', secondsToFetch));
   fetcher.on('fetching', () => console.log('fetching'));
