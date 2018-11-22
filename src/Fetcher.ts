@@ -6,6 +6,7 @@ interface Events {
   countdown: (secondsToFetch: number) => void;
   fetching: void;
   fetchedStale: void;
+  fetchFailed: void;
   fetched: (predictions: APIPrediction[]) => void;
 }
 
@@ -26,19 +27,23 @@ class Fetcher extends (EventEmitter as { new (): FetcherEmitter }) {
 
   async fetch() {
     this.emit('fetching');
-    const res = await fetch('https://api.tfl.gov.uk/mode/tube/arrivals?count=-1');
-    const predictions = (await res.json()) as APIResponse;
+    try {
+      const res = await fetch('https://api.tfl.gov.uk/mode/tube/arrivals?count=-1');
+      const predictions = (await res.json()) as APIResponse;
 
-    const predictionsTime = new Date(predictions[0].timestamp);
+      const predictionsTime = new Date(predictions[0].timestamp);
 
-    if (this.lastTime && predictionsTime <= this.lastTime) {
-      this.emit('fetchedStale');
-      return;
+      if (this.lastTime && predictionsTime <= this.lastTime) {
+        this.emit('fetchedStale');
+        return;
+      }
+
+      this.emit('fetched', predictions);
+
+      this.lastTime = predictionsTime;
+    } catch {
+      this.emit('fetchFailed');
     }
-
-    this.emit('fetched', predictions);
-
-    this.lastTime = predictionsTime;
   }
 
   async countDown() {

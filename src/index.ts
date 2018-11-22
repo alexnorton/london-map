@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   fetcher.on('countdown', (secondsToFetch: number) => console.log('countDown', secondsToFetch));
   fetcher.on('fetching', () => console.log('fetching'));
+  fetcher.on('fetchFailed', () => console.log('fetchFailed'));
   fetcher.on('fetchedStale', () => console.log('fetchedStale'));
   fetcher.on('fetched', (predictions: any) => console.log('fetched', predictions));
 
