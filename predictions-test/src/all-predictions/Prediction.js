@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/styles/hljs';
+import React, { Component } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 class Prediction extends Component {
   constructor(props) {
